@@ -84,11 +84,12 @@ These exercises will reiterate what you learned in the "Expanding the data wrang
 garden_harvest %>%
   mutate(day_of_week = wday(date, label=TRUE)) %>% 
   group_by(vegetable, day_of_week) %>% 
-  summarize(weight=sum(weight)) %>%
   mutate(weight_lb = weight*0.00220462) %>% 
-  pivot_wider(id_cols =day_of_week:weight_lb,
+  summarize(sum_weight =sum(weight_lb)) %>%
+ 
+  pivot_wider(
               names_from = day_of_week,
-              values_from = weight_lb)
+              values_from = sum_weight) 
               
   
 
@@ -120,16 +121,22 @@ garden_harvest %>%
 ```{r}
 garden_harvest %>% 
   filter(vegetable == "tomatoes") %>% 
- # mutate(variety = fct_reorder(variety)) %>% 
   group_by(variety) %>% 
   summarize(weight=sum(weight)) %>%
   mutate(weight_lb = weight*0.00220462) %>% 
-  fct_infreq(weight_lb) %>% 
+ # fct_infreq(weight_lb) %>% 
   
-  ggplot(aes(x = reorder(variety))) +
-  geom_col()
-
+  ggplot(aes(x = variety,
+             y = reorder(weight_lb, variety))) +
+  geom_col(aes(fill = variety)) + 
   
+  labs(title = "Tomato Time",
+       subtitle = "Total tomato harvest in pounds for each variety",
+       y = "",
+       x = "") +
+  
+theme(legend.position = "none",
+      axis.text.x = element_text(angle = 90))
   
 
 ```
@@ -142,7 +149,8 @@ garden_harvest %>%
   mutate(letter_num = str_length(lower_variety)) %>% 
   group_by(vegetable, lower_variety, letter_num) %>% 
   select(vegetable, lower_variety, letter_num) %>% 
-  pivot_wider(id_cols = vegetable:letter_num,
+  distinct() %>% 
+  pivot_wider(
               names_from = lower_variety, 
               values_from = letter_num)
 
