@@ -283,7 +283,8 @@ Trips %>%
 
   
   ggplot(aes(x = time_hour_minute)) +
-  geom_density(aes(fill = client), alpha = .5, color = NA) +
+  geom_density(aes(fill = client), alpha = .5, color = NA,
+               position = position_stack()) +
   facet_wrap(vars(day_of_week))
 
 ```
@@ -320,7 +321,17 @@ Trips %>%
   
   16. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? (Again, we'll improve this next week when we learn about maps).
   
+  __Most clients are registered!__
+  
 ```{r}
+Trips %>% 
+  group_by(sstation, client) %>% 
+  summarize(sum_station = n()) %>% 
+  left_join(Stations,
+            by = c("sstation" = "name")) %>% 
+  ggplot(aes(x = long,
+              y = lat)) +
+  geom_point(aes(color = client))
 
 ```
   
