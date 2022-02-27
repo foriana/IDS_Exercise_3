@@ -355,7 +355,7 @@ Trips %>%
 
   ggplot(aes(x = time_hour_minute)) +
   geom_density() +
-  facet_wrap(vars(weekend)) 
+  facet_wrap(vars(client)) 
 
 
 ```
