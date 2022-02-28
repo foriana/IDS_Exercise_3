@@ -242,6 +242,7 @@ Trips %>%
   geom_bar() +
   
   labs(title = "Bike-rental usage throughout the week",
+       subtitle = "Based on 2014 bike-rental user data",
        y = "", 
        x = "")
 
@@ -337,7 +338,7 @@ Trips %>%
   facet_wrap(vars(weekend)) +
   
   labs(title = "Weekend vs Weekday Bike-Rental Usage",
-       subtitle = "Comparing the volume and time of day",
+       subtitle = "Comparing the volume of users renting bikes and time of day",
        y = "",
        x = "")
 ```
@@ -354,9 +355,14 @@ Trips %>%
   mutate(weekend = ifelse(day_of_week == "Sat"| day_of_week == "Sun", yes = "Weekend", no = "Weekday")) %>% 
 
   ggplot(aes(x = time_hour_minute)) +
-  geom_density() +
-  facet_wrap(vars(client)) 
-
+  geom_density(aes(fill = weekend), alpha = .5) +
+  facet_wrap(vars(client)) +
+#fill with weekday?
+  
+  labs(title = "Comparing Bike-Rental Client Usage",
+       subtitle = "The number of riders as shown throughout the time of day",
+       y = "",
+       x = "")
 
 ```
   
@@ -370,10 +376,16 @@ Trips %>%
   summarize(sum_station = n()) %>% 
   left_join(Stations,
             by = c("sstation" = "name")) %>% 
+  
   ggplot(aes(x = long,
               y = lat)) +
-  geom_point()
+  geom_point() + 
   
+  labs(title = "Map of the DC Bike Rental Stations",
+       subtitle = "The points show each stations' coordinates",
+       x = "",
+       y = "",
+       caption = "Better maps to come...")
   
 
 ```
@@ -390,7 +402,12 @@ Trips %>%
             by = c("sstation" = "name")) %>% 
   ggplot(aes(x = long,
               y = lat)) +
-  geom_point(aes(color = client))
+  geom_point(aes(color = client)) + 
+  
+  labs(title = "Station Locations and the Type of Client Who Utilizes Them", 
+       subtitle = "Each point represesnts a station's coordinates",
+       x= "",
+       y = "")
 
 ```
   
@@ -464,10 +481,36 @@ breed_rank_all %>%
   19. Create your own! Requirements: use a `join` or `pivot` function (or both, if you'd like), a `str_XXX()` function, and a `fct_XXX()` function to create a graph using any of the dog datasets. One suggestion is to try to improve the graph you created for the Tidy Tuesday assignment. If you want an extra challenge, find a way to use the dog images in the `breed_rank_all` file - check out the `ggimage` library and [this resource](https://wilkelab.org/ggtext/) for putting images as labels.
   
 ```{r}
-breed_rank_all %>%
+silly_dog <- breed_rank_all %>%
    pivot_longer(cols = starts_with("20"),
-               names_to = "Year",
-               values_to = "Rank") %>% 
+               names_to = "year",
+               values_to = "rank") %>% 
+  separate(year,
+           into = c("year"),
+           extra = "drop",
+           convert = TRUE) %>% 
+  mutate(squishy_dog = str_squish(Breed)) %>% 
+  inner_join(breed_traits %>%
+              mutate(squishy_dog = str_squish(Breed)),
+             by = "squishy_dog") %>% 
+  mutate(doggo = str_detect(squishy_dog, "dog | Dog | dogs | Dogs")) 
+
+silly_dog %>% 
+  filter(`Playfulness Level` == 5) %>% 
+  ggplot(aes(y = squishy_dog, 
+             x = year, color = doggo)) +
+  geom_line() + 
+  geom_point() + 
+  
+  labs(title = "A silly chart for a real dog of a dog",
+       subtitle = "Highest-level playful dog over the years",
+       y = "",
+       x = "",
+       caption = "But also wanted to see how the dogs with the name 'dog' in their breed name fare in playfulness.")
+  
+  
+  
+  
   
 
 ```
