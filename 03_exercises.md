@@ -1,6 +1,6 @@
 ---
 title: 'Weekly Exercises #3'
-author: "Felicia"
+author: "Felicia Peterson"
 output: 
   html_document:
     keep_md: TRUE
@@ -16,42 +16,8 @@ output:
 
 ```r
 library(tidyverse)     # for graphing and data cleaning
-```
-
-```
-## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
-```
-
-```
-## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.6     v dplyr   1.0.7
-## v tidyr   1.1.4     v stringr 1.4.0
-## v readr   2.1.1     v forcats 0.5.1
-```
-
-```
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(gardenR)       # for Lisa's garden data
 library(lubridate)     # for date manipulation
-```
-
-```
-## 
-## Attaching package: 'lubridate'
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     date, intersect, setdiff, union
-```
-
-```r
 library(ggthemes)      # for even more plotting themes
 library(geofacet)      # for special faceting with US map layout
 theme_set(theme_minimal())       # My favorite ggplot() theme :)
@@ -70,62 +36,11 @@ data("garden_planting")
 
 # Tidy Tuesday dog breed data
 breed_traits <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv')
-```
-
-```
-## Rows: 195 Columns: 17
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr  (3): Breed, Coat Type, Coat Length
-## dbl (14): Affectionate With Family, Good With Young Children, Good With Othe...
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 trait_description <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv')
-```
-
-```
-## Rows: 16 Columns: 4
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (4): Trait, Trait_1, Trait_5, Description
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 breed_rank_all <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv')
-```
 
-```
-## Rows: 195 Columns: 11
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (3): Breed, links, Image
-## dbl (8): 2013 Rank, 2014 Rank, 2015 Rank, 2016 Rank, 2017 Rank, 2018 Rank, 2...
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 # Tidy Tuesday data for challenge problem
 kids <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-15/kids.csv')
-```
-
-```
-## Rows: 23460 Columns: 6
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (2): state, variable
-## dbl (4): year, raw, inf_adj, inf_adj_perchild
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ## Setting up on GitHub!
@@ -178,11 +93,6 @@ garden_harvest %>%
               values_from = sum_weight) 
 ```
 
-```
-## `summarise()` has grouped output by 'vegetable'. You can override using the
-## `.groups` argument.
-```
-
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["vegetable"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Sat"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mon"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Tue"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Thu"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fri"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Sun"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Wed"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"apple","2":"0.34392072","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"asparagus","2":"0.04409240","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"basil","2":"0.41005932","3":"0.0661386","4":"0.11023100","5":"0.02645544","6":"0.46737944","7":"NA","8":"NA"},{"1":"beans","2":"4.70906832","3":"6.5080382","4":"4.38719380","5":"3.39291018","6":"1.52559704","7":"1.91361016","8":"4.08295624"},{"1":"beets","2":"0.37919464","3":"0.6724091","4":"0.15873264","5":"11.89172028","6":"0.02425082","7":"0.32187452","8":"0.18298346"},{"1":"broccoli","2":"NA","3":"0.8201186","4":"NA","5":"NA","6":"0.16534650","7":"1.25883802","8":"0.70768302"},{"1":"carrots","2":"2.33028334","3":"0.8708249","4":"0.35273920","5":"2.67420406","6":"2.13848140","7":"2.93655384","8":"5.56225626"},{"1":"chives","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"0.01763696"},{"1":"cilantro","2":"0.03747854","3":"NA","4":"0.00440924","5":"NA","6":"0.07275246","7":"NA","8":"NA"},{"1":"corn","2":"1.31615814","3":"0.7583893","4":"0.72752460","5":"NA","6":"3.44802568","7":"1.45725382","8":"5.30211110"},{"1":"cucumbers","2":"9.64080326","3":"4.7752069","4":"10.04645334","5":"3.30693000","6":"7.42956940","7":"3.10410496","8":"5.30652034"},{"1":"edamame","2":"4.68922674","3":"NA","4":"1.40213832","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"hot peppers","2":"NA","3":"1.2588380","4":"0.14109568","5":"NA","6":"NA","7":"NA","8":"0.06834322"},{"1":"jalapeño","2":"1.50796008","3":"5.5534378","4":"0.54895038","5":"0.22487124","6":"1.29411194","7":"0.26234978","8":"0.48060716"},{"1":"kale","2":"1.49032312","3":"2.0679336","4":"0.28219136","5":"0.27998674","6":"0.38139926","7":"0.82673250","8":"0.61729360"},{"1":"kohlrabi","2":"NA","3":"NA","4":"NA","5":"0.42108242","6":"NA","7":"NA","8":"NA"},{"1":"lettuce","2":"1.31615814","3":"2.4581513","4":"0.91712192","5":"2.45153744","6":"1.80117454","7":"1.46607230","8":"1.18608556"},{"1":"onions","2":"1.91361016","3":"0.5092672","4":"0.70768302","5":"0.60186126","6":"0.07275246","7":"0.26014516","8":"NA"},{"1":"peas","2":"2.85277828","3":"4.6341112","4":"2.06793356","5":"3.39731942","6":"0.93696350","7":"2.05691046","8":"1.08026380"},{"1":"peppers","2":"1.38229674","3":"2.5264945","4":"1.44402610","5":"0.70988764","6":"0.33510224","7":"0.50265336","8":"2.44271896"},{"1":"potatoes","2":"2.80207202","3":"0.9700328","4":"NA","5":"11.85203712","6":"3.74124014","7":"NA","8":"4.57017726"},{"1":"pumpkins","2":"92.68883866","3":"30.1195184","4":"31.85675900","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"radish","2":"0.23148510","3":"0.1962112","4":"0.09479866","5":"0.14770954","6":"0.19400656","7":"0.08157094","8":"NA"},{"1":"raspberries","2":"0.53351804","3":"0.1300726","4":"0.33510224","5":"0.28880522","6":"0.57099658","7":"NA","8":"NA"},{"1":"rutabaga","2":"6.89825598","3":"NA","4":"NA","5":"NA","6":"3.57809826","7":"19.26396956","8":"NA"},{"1":"spinach","2":"0.26014516","3":"0.1477095","4":"0.49603950","5":"0.23368972","6":"0.19621118","7":"0.48722102","8":"0.21384814"},{"1":"squash","2":"56.22221924","3":"24.3345956","4":"18.46810174","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"strawberries","2":"0.16975574","3":"0.4784025","4":"NA","5":"0.08818480","6":"0.48722102","7":"0.08157094","8":"NA"},{"1":"Swiss chard","2":"0.73413846","3":"1.0736499","4":"0.07054784","5":"2.23107544","6":"0.61729360","7":"1.24781492","8":"0.90830344"},{"1":"tomatoes","2":"35.12621046","3":"11.4926841","4":"48.75076206","5":"34.51773534","6":"85.07628580","7":"75.60964752","8":"58.26590198"},{"1":"zucchini","2":"3.41495638","3":"12.1959578","4":"16.46851140","5":"34.63017096","6":"18.72163304","7":"12.23564100","8":"2.04147812"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -203,11 +113,6 @@ garden_harvest %>%
   summarize(total_weight = sum(weight_lb)) %>% 
   left_join(garden_planting,
             by = c("vegetable", "variety"))
-```
-
-```
-## `summarise()` has grouped output by 'vegetable'. You can override using the
-## `.groups` argument.
 ```
 
 <div data-pagedtable="false">
@@ -243,80 +148,6 @@ garden_harvest %>%
   
 theme(legend.position = "none",
       axis.text.x = element_text(angle = 90))
-```
-
-```
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
-
-## Warning in mean.default(X[[i]], ...): argument is not numeric or logical:
-## returning NA
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
@@ -379,20 +210,9 @@ Here is the code to read in the data. We do this a little differently than usual
 
 ```r
 data_site <- 
-  "https://www.macalester.edu/~dshuman1/data/112/2014-Q4-Trips-History-Data-Small.rds" 
+  "https://www.macalester.edu/~dshuman1/data/112/2014-Q4-Trips-History-Data.rds" 
 Trips <- readRDS(gzcon(url(data_site)))
 Stations<-read_csv("http://www.macalester.edu/~dshuman1/data/112/DC-Stations.csv")
-```
-
-```
-## Rows: 347 Columns: 5
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (1): name
-## dbl (4): lat, long, nbBikes, nbEmptyDocks
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 **NOTE:** The `Trips` data table is a random subset of 10,000 trips from the full quarterly data. Start with this small data table to develop your analysis commands. **When you have this working well, you should access the full data set of more than 600,000 events by removing `-Small` from the name of the `data_site`.**
@@ -562,6 +382,8 @@ Trips %>%
   
   14. Change the graph from the previous problem to facet on `client` and fill with `weekday`. What information does this graph tell you that the previous didn't? Is one graph better than the other?
   
+  __This graph highlights both the differences just in terms of overall usage depending on the weekend/weekday as well as disaggregating the information so that the reader can understand quickly the differences between the registered and casual clients. I think this graph is better than the other one because it tells a more complete story.__
+  
 
 ```r
 Trips %>% 
@@ -573,7 +395,7 @@ Trips %>%
   mutate(weekend = ifelse(day_of_week == "Sat"| day_of_week == "Sun", yes = "Weekend", no = "Weekday")) %>% 
 
   ggplot(aes(x = time_hour_minute)) +
-  geom_density(aes(fill = weekend), alpha = .5) +
+  geom_density(aes(fill = weekend), alpha = .5, color = NA) +
   facet_wrap(vars(client)) +
 #fill with weekday?
   
@@ -608,15 +430,11 @@ Trips %>%
        caption = "Better maps to come...")
 ```
 
-```
-## Warning: Removed 11 rows containing missing values (geom_point).
-```
-
 ![](03_exercises_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
   
   16. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? (Again, we'll improve this next week when we learn about maps).
   
-  __Most clients are registered! Those who are casual users tend to be in the furthest station location.__
+  __Most clients are registered! Those who are casual users tend to be in the furthest station location.__ **update: once I left the "small" dataset size, I no longer see the casual users at all. Every station is used more by registered clients, it seems.**
   
 
 ```r
@@ -633,15 +451,6 @@ Trips %>%
        subtitle = "Each point represesnts a station's coordinates",
        x= "",
        y = "")
-```
-
-```
-## `summarise()` has grouped output by 'sstation'. You can override using the
-## `.groups` argument.
-```
-
-```
-## Warning: Removed 18 rows containing missing values (geom_point).
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-16-1.png)<!-- -->

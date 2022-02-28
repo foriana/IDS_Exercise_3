@@ -1,6 +1,6 @@
 ---
 title: 'Weekly Exercises #3'
-author: "Felicia"
+author: "Felicia Peterson"
 output: 
   html_document:
     keep_md: TRUE
@@ -12,7 +12,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries}
@@ -186,7 +186,7 @@ Here is the code to read in the data. We do this a little differently than usual
 
 ```{r cache=TRUE}
 data_site <- 
-  "https://www.macalester.edu/~dshuman1/data/112/2014-Q4-Trips-History-Data-Small.rds" 
+  "https://www.macalester.edu/~dshuman1/data/112/2014-Q4-Trips-History-Data.rds" 
 Trips <- readRDS(gzcon(url(data_site)))
 Stations<-read_csv("http://www.macalester.edu/~dshuman1/data/112/DC-Stations.csv")
 ```
@@ -345,6 +345,8 @@ Trips %>%
   
   14. Change the graph from the previous problem to facet on `client` and fill with `weekday`. What information does this graph tell you that the previous didn't? Is one graph better than the other?
   
+  __This graph highlights both the differences just in terms of overall usage depending on the weekend/weekday as well as disaggregating the information so that the reader can understand quickly the differences between the registered and casual clients. I think this graph is better than the other one because it tells a more complete story.__
+  
 ```{r}
 Trips %>% 
   mutate(time_hour = hour(sdate),
@@ -355,7 +357,7 @@ Trips %>%
   mutate(weekend = ifelse(day_of_week == "Sat"| day_of_week == "Sun", yes = "Weekend", no = "Weekday")) %>% 
 
   ggplot(aes(x = time_hour_minute)) +
-  geom_density(aes(fill = weekend), alpha = .5) +
+  geom_density(aes(fill = weekend), alpha = .5, color = NA) +
   facet_wrap(vars(client)) +
 #fill with weekday?
   
@@ -392,7 +394,7 @@ Trips %>%
   
   16. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? (Again, we'll improve this next week when we learn about maps).
   
-  __Most clients are registered! Those who are casual users tend to be in the furthest station location.__
+  __Most clients are registered! Those who are casual users tend to be in the furthest station location.__ **update: once I left the "small" dataset size, I no longer see the casual users at all. Every station is used more by registered clients, it seems.**
   
 ```{r}
 Trips %>% 
