@@ -562,6 +562,8 @@ silly_dog %>%
 ## GitHub link
 
   20. Below, provide a link to your GitHub page with this set of Weekly Exercises. Specifically, if the name of the file is 03_exercises.Rmd, provide a link to the 03_exercises.md file, which is the one that will be most readable on GitHub.
+  
+  [My Amazing GitHub .md file Link](https://github.com/foriana/IDS_Exercise_3/blob/cc62a899be7d3ee9cf2497cbba370d9b56c40356/03_exercises.md)
 
 ## Challenge problem! 
 
