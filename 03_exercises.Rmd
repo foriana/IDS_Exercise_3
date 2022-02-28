@@ -409,12 +409,11 @@ breed_traits_total <- breed_traits %>%
                names_to = "Evaluation Type",
                values_to = "Rank") %>% 
   group_by(Breed) %>% 
-  summarize(total_raiting = sum(Rank))# %>% 
- # filter(Breeds %in% c("Plott Hounds"))
-  
+  summarize(total_raiting = sum(Rank))
   
 
 breed_traits_total %>% 
+  filter(total_raiting > 0) %>% 
  
   ggplot(aes(y = fct_reorder(Breed, total_raiting),
              x = total_raiting)) + 
@@ -433,16 +432,43 @@ breed_traits_total %>%
   
 ```{r}
 breed_rank_all %>% 
-  pivot_longer(cols = starts_with("20"),
-               names_to = "Year",
-               values_to = "Rank") %>% 
-  str_squish(string, side = c("Breed", "links", "Image"))
+  pivot_longer(cols = `2013 Rank`:`2020 Rank`,
+               names_to = "year",
+               values_to = "rank") %>% 
+  separate(year,
+           into = c("year"),
+           extra = "drop",
+           convert = TRUE) %>% 
+  mutate(squishy_dog = str_squish(Breed)) %>% 
+  inner_join(breed_traits_total %>% 
+              slice_max(n = 20, order_by = total_raiting) %>% 
+              mutate(squishy_dog = str_squish(Breed)),
+             by = "squishy_dog") %>% 
+ 
+  
+   ggplot(aes(x = year,
+             y = fct_rev(fct_reorder(squishy_dog, rank, median)))) +
+  geom_line() +
+  geom_point(aes(color = rank)) + 
+  
+  theme(panel.grid = element_blank()) + 
+  
+  labs(title = "The Top Dog Tango", 
+       subtitle = "A visualization of the top 20 dogs and how their ranks compare over the years", 
+       y = "",
+       x = "",
+       caption = "Who will bow-WOW you the most and who is sleeping in the doghouse?")
   
 ```
   
   19. Create your own! Requirements: use a `join` or `pivot` function (or both, if you'd like), a `str_XXX()` function, and a `fct_XXX()` function to create a graph using any of the dog datasets. One suggestion is to try to improve the graph you created for the Tidy Tuesday assignment. If you want an extra challenge, find a way to use the dog images in the `breed_rank_all` file - check out the `ggimage` library and [this resource](https://wilkelab.org/ggtext/) for putting images as labels.
   
 ```{r}
+breed_rank_all %>%
+   pivot_longer(cols = starts_with("20"),
+               names_to = "Year",
+               values_to = "Rank") %>% 
+  
 
 ```
   
